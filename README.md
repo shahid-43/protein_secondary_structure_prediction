@@ -72,9 +72,6 @@ This model treats protein folding as a sequence-to-sequence classification probl
 
 ---
 
-
-
-
 ## 4. Project Directory Structure
 ```text
 Protein_Secondary_Structure_Prediction/
@@ -100,20 +97,45 @@ Protein_Secondary_Structure_Prediction/
 │
 ├── main.py                  # Entry point for the application
 └── requirements.txt         # Dependencies
+```
 
+---
 
-### 5. Results and Analysis
+## 5. Results and Analysis
 We evaluated all models on the same test split of the CB513 dataset.
 
 | Metric | Chou-Fasman | GOR (Smoothed) | BiLSTM (Enhanced) |
-| :--- | :---: | :---: | :---: |
-| **Q3 Accuracy** | **~53.2%** | **~59.4%** | **~64.5%** |
-| **Helix F1** | 0.50 | 0.61 | 0.64 |
-| **Sheet F1** | 0.47 | 0.47 | 0.54 |
-| **Coil F1** | 0.60 | 0.64 | 0.70 |
+|--------|-------------|----------------|-------------------|
+| Q3 Accuracy | ~53.2% | ~59.4% | ~64.5% |
+| Helix F1 | 0.50 | 0.61 | 0.64 |
+| Sheet F1 | 0.47 | 0.47 | 0.54 |
+| Coil F1 | 0.60 | 0.64 | 0.70 |
 
 ### Key Observations
-*   **Baseline Performance:** Chou-Fasman provides a baseline of ~53%. Its lower accuracy highlights the limitation of analyzing residues in isolation.
-*   **Impact of Context:** GOR improves accuracy by ~6% simply by looking at neighbors, proving that local sequence context is a strong determinant of structure.
-*   **Deep Learning Superiority:** The BiLSTM achieves the highest accuracy (~64.5%). The significant improvement in **Sheet (E)** detection (Recall increased from 0.13 to 0.50 after masking) demonstrates the model's ability to learn long-range dependencies that statistical methods miss.
-*   **Theoretical Limits:** While modern state-of-the-art tools achieve >80%, they rely on **PSSMs (Evolutionary Profiles)**. Using *only* the primary sequence (as done in this project), the theoretical limit is often cited around 65-70%, which our BiLSTM successfully approaches.
+* **Baseline Performance:** Chou-Fasman provides a baseline of ~53%. Its lower accuracy highlights the limitation of analyzing residues in isolation.
+* **Impact of Context:** GOR improves accuracy by ~6% simply by looking at neighbors, proving that local sequence context is a strong determinant of structure.
+* **Deep Learning Superiority:** The BiLSTM achieves the highest accuracy (~64.5%). The significant improvement in Sheet (E) detection (Recall increased from 0.13 to 0.50 after masking) demonstrates the model's ability to learn long-range dependencies that statistical methods miss.
+* **Theoretical Limits:** While modern state-of-the-art tools achieve >80%, they rely on PSSMs (Evolutionary Profiles). Using only the primary sequence (as done in this project), the theoretical limit is often cited around 65-70%, which our BiLSTM successfully approaches.
+
+---
+
+## 6. Usage Instructions
+
+### 1. Install Dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+### 2. Run the Comparison:
+```bash
+python main.py
+```
+
+**Note:** The script checks for `models/bilstm_model.keras`. If found, it loads the model. If not, it trains a new one and saves it.
+
+---
+
+## 7. References
+1. Chou, P. Y., & Fasman, G. D. (1974). Prediction of protein conformation. *Biochemistry*, 13(2), 222-245.
+2. Garnier, J., Osguthorpe, D. J., & Robson, B. (1978). Analysis of the accuracy and implications of simple methods for predicting the secondary structure of globular proteins. *Journal of Molecular Biology*, 120(1), 97-120.
+3. Hochreiter, S., & Schmidhuber, J. (1997). Long Short-Term Memory. *Neural Computation*, 9(8), 1735-1780.
