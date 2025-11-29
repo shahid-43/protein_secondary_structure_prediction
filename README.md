@@ -72,6 +72,9 @@ This model treats protein folding as a sequence-to-sequence classification probl
 
 ---
 
+
+
+
 ## 4. Project Directory Structure
 ```text
 Protein_Secondary_Structure_Prediction/
@@ -99,15 +102,18 @@ Protein_Secondary_Structure_Prediction/
 └── requirements.txt         # Dependencies
 
 
-## 5. Results and Analysis
+### 5. Results and Analysis
 We evaluated all models on the same test split of the CB513 dataset.
-Metric	Chou-Fasman	GOR (Smoothed)	BiLSTM (Enhanced)
-Q3 Accuracy	~53.2%	~59.4%	~64.5%
-Helix F1	0.50	0.61	0.64
-Sheet F1	0.47	0.47	0.54
-Coil F1	0.60	0.64	0.70
-*   **Key Observations
-*   **Baseline Performance: Chou-Fasman provides a baseline of ~53%. Its lower accuracy highlights the limitation of analyzing residues in isolation.
-*   **Impact of Context: GOR improves accuracy by ~6% simply by looking at neighbors, proving that local sequence context is a strong determinant of structure.
-*   **Deep Learning Superiority: The BiLSTM achieves the highest accuracy (~64.5%). The significant improvement in Sheet (E) detection (Recall increased from 0.13 to 0.50 after masking) demonstrates the model's ability to learn long-range dependencies that statistical methods miss.
-*   **Theoretical Limits: While modern state-of-the-art tools achieve >80%, they rely on PSSMs (Evolutionary Profiles). Using only the primary sequence (as done in this project), the theoretical limit is often cited around 65-70%, which our BiLSTM successfully approaches.
+
+| Metric | Chou-Fasman | GOR (Smoothed) | BiLSTM (Enhanced) |
+| :--- | :---: | :---: | :---: |
+| **Q3 Accuracy** | **~53.2%** | **~59.4%** | **~64.5%** |
+| **Helix F1** | 0.50 | 0.61 | 0.64 |
+| **Sheet F1** | 0.47 | 0.47 | 0.54 |
+| **Coil F1** | 0.60 | 0.64 | 0.70 |
+
+### Key Observations
+*   **Baseline Performance:** Chou-Fasman provides a baseline of ~53%. Its lower accuracy highlights the limitation of analyzing residues in isolation.
+*   **Impact of Context:** GOR improves accuracy by ~6% simply by looking at neighbors, proving that local sequence context is a strong determinant of structure.
+*   **Deep Learning Superiority:** The BiLSTM achieves the highest accuracy (~64.5%). The significant improvement in **Sheet (E)** detection (Recall increased from 0.13 to 0.50 after masking) demonstrates the model's ability to learn long-range dependencies that statistical methods miss.
+*   **Theoretical Limits:** While modern state-of-the-art tools achieve >80%, they rely on **PSSMs (Evolutionary Profiles)**. Using *only* the primary sequence (as done in this project), the theoretical limit is often cited around 65-70%, which our BiLSTM successfully approaches.
